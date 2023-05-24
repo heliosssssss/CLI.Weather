@@ -3,6 +3,7 @@ import json
 import os 
 from statistics import mean
 from statistics import mode 
+import time
 
 from pprint import pprint
 
@@ -118,14 +119,21 @@ class MenuHandler:
   Real Time Weather Information of Portlaoise 
   Information is sourced from a realtime API
 
-  Made by Adam 
+  Last updated in 18/5/23 (helios # 0001)
+  [v1.2 - build: stable]
+
+[--------------------------------------------------------]
 
   [1] - Temperature 
   [2] - Windspeeds
   [3] - Wind Direction 
   [4] - Rainfall 
   [5] - Visibility
-  
+
+  [0] - Exit 
+  [-1] - Check MM API (https://api.helioss.fr/v14/status) 
+
+[--------------------------------------------------------]
   """
 
     print(menu)
@@ -234,16 +242,44 @@ class MenuHandler:
         Utility.ReturnMenu()
       if state == "n": 
         return
+ 
+    if data_needed == str(0):
+      os.system('clear')
+      print("0x00000: function closed - exit code: 0 clear")
+
+    if data_needed == str(-1):
+      os.system('clear')
+      print("[------------------------------------------------------]")
+      print('Checkig')
 
 class LoadingScreen: 
   def DisplayLoader():
 
     print("Weather Information - Today")
-    
     print("Please wait for the API to load")
 
-    print("")
+    print("[------------------------------------------------------]")
+    print("  [API]: Gathering location data ...")
+    time.sleep(1)
+    print("  [API]: Checking status of api.open-mateo.com/v1/ ...")
+    time.sleep(2)
+    print("  [API]: Status: 200 / OK ...")
+    time.sleep(1)
+    print("  [API]: Checking regional data ...")
+    time.sleep(4)
+    print("  [API]: Regional data is active in the API")
+    time.sleep(1)
+    print("  [API]: All systems active")
+    time.sleep(0.1)
+    print("  [API]: Entering system in 5 seconds ...")
+    print("[------------------------------------------------------]")
 
-MenuHandler.init()
+    time.sleep(5)
 
-#LoadingScreen.DisplayLoader()
+    os.system('clear')
+
+    MenuHandler.init()
+
+#MenuHandler.init()
+
+LoadingScreen.DisplayLoader()
